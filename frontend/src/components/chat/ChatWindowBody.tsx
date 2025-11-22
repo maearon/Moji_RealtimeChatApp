@@ -21,10 +21,13 @@ const ChatWindowBody = () => {
   const reversedMessages = [...messages].reverse();
   const hasMore = allMessages[activeConversationId!]?.hasMore ?? false;
   const selectedConvo = conversations.find((c) => c._id === activeConversationId);
+  const key = `chat-scroll-${activeConversationId}`;
 
   // ref
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // seen status
   useEffect(() => {
     const lastMessage = selectedConvo?.lastMessage;
     if (!lastMessage || !user?._id) {
@@ -59,6 +62,35 @@ const ChatWindowBody = () => {
     }
   };
 
+  const handleScrollSave = () => {
+    const container = containerRef.current;
+    if (!container || !activeConversationId) {
+      return;
+    }
+
+    sessionStorage.setItem(
+      key,
+      JSON.stringify({
+        scrollTop: container.scrollTop,
+        scrollHeight: container.scrollHeight,
+      })
+    );
+  };
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const item = sessionStorage.getItem(key);
+
+    if (item) {
+      const { scrollTop } = JSON.parse(item);
+      requestAnimationFrame(() => {
+        container.scrollTop = scrollTop;
+      });
+    }
+  }, [messages.length]);
+
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
   }
@@ -75,6 +107,8 @@ const ChatWindowBody = () => {
     <div className="p-4 bg-primary-foreground h-full flex flex-col overflow-hidden">
       <div
         id="scrollableDiv"
+        ref={containerRef}
+        onScroll={handleScrollSave}
         className="flex flex-col-reverse overflow-y-auto overflow-x-hidden beautiful-scrollbar"
       >
         <InfiniteScroll
