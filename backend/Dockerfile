@@ -8,7 +8,7 @@ COPY --chown=node:node package.json package-lock.json ./
 
 USER node
 
-RUN npm install --pure-lockfile
+RUN npm install
 
 COPY --chown=node:node . .
 
