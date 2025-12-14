@@ -68,7 +68,7 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
           >
             <div>
               <EmojiPicker
-                onChange={(emoji: string) => setValue(`${value}${emoji}`)}
+                // onChange={(emoji: string) => setValue(`${value}${emoji}`)}
               />
             </div>
           </Button>
