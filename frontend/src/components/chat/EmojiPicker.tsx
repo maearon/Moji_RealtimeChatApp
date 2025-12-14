@@ -1,15 +1,15 @@
-import { useThemeStore } from "@/stores/useThemeStore";
+// import { useThemeStore } from "@/stores/useThemeStore";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Smile } from "lucide-react";
 // import Picker from "@emoji-mart/react";
 // import data from "@emoji-mart/data";
 
-interface EmojiPickerProps {
-  onChange: (value: string) => void;
-}
+// interface EmojiPickerProps {
+//   onChange: (value: string) => void;
+// }
 
-const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
-  const { isDark } = useThemeStore();
+const EmojiPicker = () => {
+  // const { isDark } = useThemeStore();
 
   return (
     <Popover>
