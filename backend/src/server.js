@@ -21,7 +21,16 @@ const PORT = process.env.PORT || 5001;
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+// app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: [
+      'https://moji-realtime-chat-app.vercel.app',
+      'https://moji-phi.vercel.app',
+    ],
+    credentials: true,
+  }),
+);
 
 // swagger
 const swaggerDocument = JSON.parse(fs.readFileSync("./src/swagger.json", "utf8"));
