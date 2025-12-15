@@ -27,6 +27,8 @@ app.use(
     origin: [
       'https://moji-realtime-chat-app.vercel.app',
       'https://moji-phi.vercel.app',
+      "http://localhost:5005",
+      "http://localhost:5173",
     ],
     credentials: true,
   }),
